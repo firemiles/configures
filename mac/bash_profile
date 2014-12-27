@@ -1,0 +1,10 @@
+#~/.bash_profile
+
+if brew list | grep coreutils > /dev/null ; then
+    PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+fi
+
+alias grep='grep --color'
+alias ls='ls -F --show-control-chars --color=auto'
+alias la='ls --color=auto -a'
+alias ll='ls --color=auto -a'
