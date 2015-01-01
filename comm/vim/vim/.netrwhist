@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/firemiles/Applications/Chrome Apps.localized'
+let g:netrw_dirhist_2='/Users/firemiles/.vim'
+let g:netrw_dirhist_3='/Users/firemiles/Developer'
