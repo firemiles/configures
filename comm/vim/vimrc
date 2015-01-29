@@ -27,11 +27,11 @@ Plugin 'sickill/vim-monokai'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Negative
-Plugin 'tagbar.vim'
-let g:tarbar_ctags_bin = '/usr/bin/ctags'
+Plugin 'tagbar'
+let g:tarbar_ctags_bin = 'ctags'
 set tags=tags;
 set autochdir
-map <F3> :Tarbar<CR>-
+map <F3> :Tagbar<CR>-
 
 Plugin 'The-NERD-tree'
 map <F2> :NERDTreeToggle<CR>

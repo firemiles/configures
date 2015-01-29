@@ -1,5 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/Users/firemiles/Applications/Chrome Apps.localized'
 let g:netrw_dirhist_2='/Users/firemiles/.vim'
 let g:netrw_dirhist_3='/Users/firemiles/Developer'
+let g:netrw_dirhist_4='/Users/firemiles/firemiles.github.io/_includes'
+let g:netrw_dirhist_5='/usr/local/lib'
+let g:netrw_dirhist_6='/Users/firemiles/Downloads/DMX1024-stm32-ucos2'
+let g:netrw_dirhist_7='/Users/firemiles/Library/Developer/Xcode/UserData/FontAndColorThemes'
