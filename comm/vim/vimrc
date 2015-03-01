@@ -24,6 +24,7 @@ set encoding=utf8
 
 " colorscheme
 Plugin 'sickill/vim-monokai'
+Plugin 'plasticboy/vim-markdown'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Negative
