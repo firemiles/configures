@@ -19,14 +19,14 @@ class BlogCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         prefix = time.strftime("%F") + '-'
         file_name = self.view.file_name()
-        print('read from '+file_name)
+        print('Read from '+file_name+' with decoding utf-8')
         f = codecs.open(file_name, 'r', 'utf-8')
         lines = f.read()
 
         (path, file_name) = os.path.split(file_name)
         (base, extension) = os.path.splitext(file_name)
         blog_name = os.path.join(self.blog_path, prefix + file_name)
-        print('write to '+blog_name)
+        print('Write to '+blog_name+' with encoding utf-8')
 
         head = '---\nlayout: post\ntitle: "' + base + '"\ndate: '
         head += time.strftime("%F") + '\ncomments: true\n---\n'
