@@ -8,3 +8,5 @@ alias grep='grep --color'
 alias ls='ls -F --show-control-chars --color=auto'
 alias la='ls -a'
 alias ll='ls -l'
+
+source ~/.profile

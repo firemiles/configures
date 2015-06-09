@@ -26,6 +26,15 @@ set encoding=utf8
 Plugin 'sickill/vim-monokai'
 Plugin 'plasticboy/vim-markdown'
 
+" python
+Plugin 'klen/python-mode'
+" Override go-to.definition key shortcut to Ctrl-]
+let g:pymode_rope_goto_definition_bind = "<C-]>"
+" Override run current python file key shortcut to Ctrl-Shift-e
+let g:pymode_run_bind = "<C-R>"
+" Override view python doc key shortcut to Ctrl-Shift-d
+let g:pymode_doc_bind = "<S-K>"
+
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Negative
 Plugin 'tagbar'
@@ -53,6 +62,9 @@ Plugin 'c.vim'
 
 " auto complete
 Plugin 'AutoComplPop'
+" case sensitive
+let g:acp_ignorecaseOption = 0
+
 Plugin 'L9'
 Plugin 'ctrlp.vim'
 
@@ -308,8 +320,6 @@ function! Run()
         call CompileRunGcc()
     elseif &filetype=="cpp"
         call CompileRunGpp()
-    elseif &filetype=="python"
-        call RunPython()
     endif
 endfunction
 
