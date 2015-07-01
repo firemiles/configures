@@ -18,9 +18,14 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'Lokaltog/vim-powerline'
 set laststatus=2
+set statusline+=%{fugitive#statusline()} "  Git Hotness
 set t_Co=256
 let g:Powerline_symbols = 'unicode'
 set encoding=utf8
+
+" git help
+" need run PowerlineClearCache refresh and reopen vim to fresh powerline
+Plugin 'tpope/vim-fugitive'
 
 " colorscheme
 Plugin 'sickill/vim-monokai'
