@@ -23,6 +23,8 @@ set t_Co=256
 let g:Powerline_symbols = 'unicode'
 set encoding=utf8
 
+Plugin 'Lokaltog/vim-easymotion'
+
 " git help
 " need run PowerlineClearCache refresh and reopen vim to fresh powerline
 Plugin 'tpope/vim-fugitive'
@@ -280,6 +282,8 @@ endf
 
 nmap <F6> :call MakeAndLoadTags()<CR>
 function MakeAndLoadTags()
+    exec '!find ./ -name "*.h" -o -name "*.c" -o -name "*.cpp" -o -name "*.cc"> cscope.files'
+    exec '!cscope -bkq -i cscope.files'
     exec '!ctags -R ./'
     call AutoLoadCTagsAndCScope()
 endfunction
@@ -335,7 +339,7 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 " cscope设置
 " -------------------------------------------------------------------
 if has("cscope")
-set csprg=/usr/bin/cscope
+set csprg=cscope
 set csto=0
 set cst
 set nocsverb
