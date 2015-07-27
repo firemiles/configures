@@ -16,14 +16,31 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
-Plugin 'Lokaltog/vim-powerline'
+" Plugin 'Lokaltog/vim-powerline'
+" set laststatus=2
+" set statusline+=%{fugitive#statusline()} "  Git Hotness
+" set t_Co=256
+" let g:Powerline_symbols = 'unicode'
+" set encoding=utf8
+Plugin 'bling/vim-airline'
+" airline设置
 set laststatus=2
-set statusline+=%{fugitive#statusline()} "  Git Hotness
-set t_Co=256
-let g:Powerline_symbols = 'unicode'
-set encoding=utf8
+" 设置
+let g:airline_theme = "luna"
 
-Plugin 'Lokaltog/vim-easymotion'
+" 使用powerline打过补丁的字体
+let g:airline_powerline_fonts = 1
+" 开启tabline
+let g:airline#extensions#tabline#enabled = 1
+" tabline中当前buffer两端的分隔字符
+" let g:airline#extensions#tabline#left_sep = ' '
+" tabline中未激活buffer两端的分隔字符
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+" tabline中buffer显示编号
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" 映射切换buffer的键位
+nnoremap b[ :bp<CR>
+nnoremap b] :bn<CR>
 
 " git help
 " need run PowerlineClearCache refresh and reopen vim to fresh powerline
@@ -48,7 +65,7 @@ Plugin 'tagbar'
 let g:tarbar_ctags_bin = 'ctags'
 set tags=tags;
 set autochdir
-map <F3> :Tagbar<CR>-
+map <F3> :Tagbar<CR>
 
 Plugin 'The-NERD-tree'
 map <F2> :NERDTreeToggle<CR>
@@ -63,16 +80,31 @@ nmap <C-I> <C-W>j:call g:SrcExpl_Jump()<CR>
 " may be conflict with defalut <C-O>
 nmap <C-O> :call g:SrcExpl_GoBack()<CR> 
 
-
-" programming
+" programming with c
 Plugin 'c.vim'
-
+" swithc between h and cpp
+Plugin 'vim-scripts/a.vim'
 " auto complete
-Plugin 'AutoComplPop'
-" case sensitive
-let g:acp_ignorecaseOption = 0
+" Plugin 'AutoComplPop'
+Plugin 'Valloric/YouCompleteMe'
+let g:ycm_global_ycm_extra_conf = '/Users/firemiles/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+" 让Vim的补全菜单行为与一般IDE一致
+set completeopt=longest,menu
+" 回车选中当前项
+inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" 键入第2个开始补全
+let g:ycm_min_num_of_chars_for_completion=2
+" 注释中也能补全
+let g:ycm_complete_in_comments = 1
+" 注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
 
-Plugin 'L9'
+
+" case sensitive
+" let g:acp_ignorecaseOption = 0
+" lib
+" Plugin 'L9'
+" quick find file
 Plugin 'ctrlp.vim'
 
 "Plugin 'git://git.wincent.com/command-t.git'
@@ -256,7 +288,7 @@ set smarttab
 " 递归查找cscope.out和tags
 " ------------------------------------------------------------------
 nmap <F5> :call AutoLoadCTagsAndCScope()<CR>
-function AutoLoadCTagsAndCScope()
+function! AutoLoadCTagsAndCScope()
     let max = 5
     let dir = './'
     let i = 0
@@ -281,7 +313,7 @@ function AutoLoadCTagsAndCScope()
 endf
 
 nmap <F6> :call MakeAndLoadTags()<CR>
-function MakeAndLoadTags()
+function! MakeAndLoadTags()
     exec '!find ./ -name "*.h" -o -name "*.c" -o -name "*.cpp" -o -name "*.cc"> cscope.files'
     exec '!cscope -bkq -i cscope.files'
     exec '!ctags -R ./'
@@ -290,7 +322,7 @@ endfunction
 
 " C的编译和运行 
 " ------------------------------------------------------------------
-function CompileRunGcc()  
+function! CompileRunGcc()  
 exec "w"  
 exec "!gcc % -o %<"
 exec "! ./%<"  
@@ -298,7 +330,7 @@ endfunc
 
 " C++的编译和运行 
 " -------------------------------------------------------------------
-function CompileRunGpp()  
+function! CompileRunGpp()  
 exec "w"  
 exec "!g++ % -o %<"
 exec "! ./%<"  
@@ -307,7 +339,7 @@ endfunction
 " Python的运行
 " --------------------------------------------------------------------
 au BufNewFile,BufRead *.py,*.pyw setf python
-function RunPython()   
+function! RunPython()   
     let mp = &makeprg   
     let ef = &errorformat   
     let exeFile = expand("%:t")   
