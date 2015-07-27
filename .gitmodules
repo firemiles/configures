@@ -1,5 +1,5 @@
 [submodule "comm/z"]
-	path = comm/z
+	path = comm/zsh/z
 	url = https://github.com/rupa/z.git
 [submodule "comm/vim/vim/bundle/Vundle.vim"]
 	path = comm/vim/vim/bundle/Vundle.vim
