@@ -73,32 +73,70 @@ imap <F2> <ESC>:NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1
 
 " source Explorer
+" 和youcompleteme冲突
 Plugin 'SrcExpl'
-nmap <F4> :SrcExplToggle<CR> 
-imap <F4> <ESC>:SrcExplToggle<CR>
-nmap <C-I> <C-W>j:call g:SrcExpl_Jump()<CR>
-" may be conflict with defalut <C-O>
-nmap <C-O> :call g:SrcExpl_GoBack()<CR> 
+let g:SrcExpl_searchLocalDef = 1
+let g:SrcExpl_isUpdateTags = 0
+let g:SrcExpl_updateTagsCmd = 'ctags --fields=l --sort=foldcase -R .'
+nmap <F4> :SrcExplToggle<CR><CR> 
+imap <F4> <ESC>:SrcExplToggle<CR><CR>
 
 " programming with c
 Plugin 'c.vim'
 " swithc between h and cpp
 Plugin 'vim-scripts/a.vim'
 " auto complete
-" Plugin 'AutoComplPop'
-Plugin 'Valloric/YouCompleteMe'
-let g:ycm_global_ycm_extra_conf = '/Users/firemiles/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-" 让Vim的补全菜单行为与一般IDE一致
-set completeopt=longest,menu
-" 回车选中当前项
-inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
-" 键入第2个开始补全
-let g:ycm_min_num_of_chars_for_completion=2
-" 注释中也能补全
-let g:ycm_complete_in_comments = 1
-" 注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
+Plugin 'AutoComplPop'
+Plugin 'clang-complete'
+let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
+let g:clang_complete_auto=1 "auto complete after -> . and ::" automatically complete after -> . ::
+let g:clang_hl_errors=1         " highlight the warnings and error the same way clang does it
+let g:clang_complete_copen=1    " open quickfix window on error
+let g:clang_periodic_quickfix=0 " periodically update the quickfix window
+let g:clang_snippets=0
+let g:clang_close_preview=0
+"let g:clang_user_options='-stdlib=libc++ -std=c++11'
+" 自动关闭补全窗口 
+" au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif 
+" set completeopt=menuone,menu,longest
 
+" Plugin 'Valloric/YouCompleteMe'
+" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+" 让Vim的补全菜单行为与一般IDE一致
+" set completeopt=longest,menu
+" 回车选中当前项
+" inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" 跳转
+" nnoremap <C-I> :YcmCompleter GoTo<CR>
+" 键入第2个开始补全
+" let g:ycm_min_num_of_chars_for_completion=2
+" 注释中也能补全
+" let g:ycm_complete_in_comments = 1
+" 在字符串输入中也能补全
+" let g:ycm_complete_in_strings = 1
+" 注释和字符串中的文字也会被收入补全
+" let g:ycm_collect_identifiers_from_comments_and_strings = 1
+" 使用ctags生成的tags文件
+" let g:ycm_collect_identifiers_from_tags_files = 1 
+" 开启语义补全
+" let g:ycm_seed_identifiers_with_syntax = 1
+" 禁止缓存匹配项，每次重新生成
+" let g:ycm_cache_omnifunc=0
+" 黑名单
+" let g:ycm_filetype_blacklist = {
+"    \ 'tagbar' : 1,
+"    \ 'qf' : 1,
+"    \ 'notes' : 1,
+"    \ 'markdown' : 1,
+"    \ 'unite' : 1,
+"    \ 'text' : 1,
+"    \ 'vimwiki' : 1,
+"    \ 'pandoc' : 1,
+"    \ 'infolog' : 1,
+"    \ 'mail' : 1,
+"    \ 'gitcommit' : 1,
+"    \ 'srcexpl': 1,
+" \}
 
 " case sensitive
 " let g:acp_ignorecaseOption = 0
@@ -299,7 +337,7 @@ function! AutoLoadCTagsAndCScope()
             execute 'cs add ' . dir . 'cscope.out '. cwd . '/' . dir
             let break = 1
         endif
-            if filereadable(dir . 'tags')
+        if filereadable(dir . 'tags')
             execute 'set tags +=' . dir . 'tags'
             let break = 1
         endif
@@ -316,7 +354,7 @@ nmap <F6> :call MakeAndLoadTags()<CR>
 function! MakeAndLoadTags()
     exec '!find ./ -name "*.h" -o -name "*.c" -o -name "*.cpp" -o -name "*.cc"> cscope.files'
     exec '!cscope -bkq -i cscope.files'
-    exec '!ctags -R ./'
+    exec '!ctags -R --fields=l ./'
     call AutoLoadCTagsAndCScope()
 endfunction
 
@@ -367,6 +405,8 @@ endfunction
 " 修改vimrc后自动生效
 map <leader>s :source ~/.vimrc<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc 
+
+" ctags设置
 
 " cscope设置
 " -------------------------------------------------------------------
