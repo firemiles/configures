@@ -16,12 +16,6 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
-" Plugin 'Lokaltog/vim-powerline'
-" set laststatus=2
-" set statusline+=%{fugitive#statusline()} "  Git Hotness
-" set t_Co=256
-" let g:Powerline_symbols = 'unicode'
-" set encoding=utf8
 Plugin 'bling/vim-airline'
 " airline设置
 set laststatus=2
@@ -32,10 +26,6 @@ let g:airline_theme = "luna"
 let g:airline_powerline_fonts = 1
 " 开启tabline
 let g:airline#extensions#tabline#enabled = 1
-" tabline中当前buffer两端的分隔字符
-" let g:airline#extensions#tabline#left_sep = ' '
-" tabline中未激活buffer两端的分隔字符
-" let g:airline#extensions#tabline#left_alt_sep = '|'
 " tabline中buffer显示编号
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " 映射切换buffer的键位
@@ -82,7 +72,7 @@ nmap <F4> :SrcExplToggle<CR><CR>
 imap <F4> <ESC>:SrcExplToggle<CR><CR>
 
 " programming with c
-Plugin 'c.vim'
+Plugin 'firemiles/c.vim'
 " swithc between h and cpp
 Plugin 'vim-scripts/a.vim'
 " auto complete
@@ -91,7 +81,7 @@ Plugin 'clang-complete'
 let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 let g:clang_use_library=1
 let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
-let g:clang_complete_auto=1 "auto complete after -> . and ::" automatically complete after -> . ::
+let g:clang_complete_auto=1 "auto complete after -> . and :: 
 let g:clang_hl_errors=1         " highlight the warnings and error the same way clang does it
 let g:clang_complete_copen=1    " open quickfix window on error
 let g:clang_periodic_quickfix=0 " periodically update the quickfix window
@@ -102,46 +92,6 @@ let g:clang_close_preview=0
 " au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif 
 " set completeopt=menuone,menu,longest
 
-" Plugin 'Valloric/YouCompleteMe'
-" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-" 让Vim的补全菜单行为与一般IDE一致
-" set completeopt=longest,menu
-" 回车选中当前项
-" inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
-" 跳转
-" nnoremap <C-I> :YcmCompleter GoTo<CR>
-" 键入第2个开始补全
-" let g:ycm_min_num_of_chars_for_completion=2
-" 注释中也能补全
-" let g:ycm_complete_in_comments = 1
-" 在字符串输入中也能补全
-" let g:ycm_complete_in_strings = 1
-" 注释和字符串中的文字也会被收入补全
-" let g:ycm_collect_identifiers_from_comments_and_strings = 1
-" 使用ctags生成的tags文件
-" let g:ycm_collect_identifiers_from_tags_files = 1 
-" 开启语义补全
-" let g:ycm_seed_identifiers_with_syntax = 1
-" 禁止缓存匹配项，每次重新生成
-" let g:ycm_cache_omnifunc=0
-" 黑名单
-" let g:ycm_filetype_blacklist = {
-"    \ 'tagbar' : 1,
-"    \ 'qf' : 1,
-"    \ 'notes' : 1,
-"    \ 'markdown' : 1,
-"    \ 'unite' : 1,
-"    \ 'text' : 1,
-"    \ 'vimwiki' : 1,
-"    \ 'pandoc' : 1,
-"    \ 'infolog' : 1,
-"    \ 'mail' : 1,
-"    \ 'gitcommit' : 1,
-"    \ 'srcexpl': 1,
-" \}
-
-" case sensitive
-" let g:acp_ignorecaseOption = 0
 " lib
 " Plugin 'L9'
 " quick find file
