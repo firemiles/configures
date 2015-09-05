@@ -16,12 +16,28 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
-Plugin 'Lokaltog/vim-powerline'
+Plugin 'bling/vim-airline'
+" airline设置
 set laststatus=2
+<<<<<<< HEAD
 set statusline+=%{fugitive#statusline()} "  Git Hotness
 set t_Co=256
 let g:Powerline_symbols = 'unicode'
 set encoding=utf8
+=======
+" 设置
+let g:airline_theme = "luna"
+
+" 使用powerline打过补丁的字体
+let g:airline_powerline_fonts = 1
+" 开启tabline
+let g:airline#extensions#tabline#enabled = 1
+" tabline中buffer显示编号
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" 映射切换buffer的键位
+nnoremap b[ :bp<CR>
+nnoremap b] :bn<CR>
+>>>>>>> 3f6c3a86a5617906ae98f9a72c83d37496b6ad68
 
 " git help
 " need run PowerlineClearCache refresh and reopen vim to fresh powerline
@@ -46,7 +62,7 @@ Plugin 'tagbar'
 let g:tarbar_ctags_bin = 'ctags'
 set tags=tags;
 set autochdir
-map <F3> :Tagbar<CR>-
+map <F3> :Tagbar<CR>
 
 Plugin 'The-NERD-tree'
 map <F2> :NERDTreeToggle<CR>
@@ -54,23 +70,40 @@ imap <F2> <ESC>:NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1
 
 " source Explorer
+" 和youcompleteme冲突
 Plugin 'SrcExpl'
-nmap <F4> :SrcExplToggle<CR> 
-imap <F4> <ESC>:SrcExplToggle<CR>
-nmap <C-I> <C-W>j:call g:SrcExpl_Jump()<CR>
-" may be conflict with defalut <C-O>
-nmap <C-O> :call g:SrcExpl_GoBack()<CR> 
+let g:SrcExpl_searchLocalDef = 1
+let g:SrcExpl_isUpdateTags = 0
+let g:SrcExpl_updateTagsCmd = 'ctags --fields=l --sort=foldcase -R .'
+nmap <F4> :SrcExplToggle<CR><CR> 
+imap <F4> <ESC>:SrcExplToggle<CR><CR>
 
-
-" programming
-Plugin 'c.vim'
-
+" programming with c
+Plugin 'firemiles/c.vim'
+" 修改 c.vim 的 leader 键，去除和 a.vim 的冲突
+let g:C_MapLeader = '\\' 
+" swithc between h and cpp
+Plugin 'vim-scripts/a.vim'
 " auto complete
 Plugin 'AutoComplPop'
-" case sensitive
-let g:acp_ignorecaseOption = 0
+Plugin 'clang-complete'
+let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+let g:clang_use_library=1
+let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
+let g:clang_complete_auto=1 "auto complete after -> . and :: 
+let g:clang_hl_errors=1         " highlight the warnings and error the same way clang does it
+let g:clang_complete_copen=1    " open quickfix window on error
+let g:clang_periodic_quickfix=0 " periodically update the quickfix window
+let g:clang_snippets=0
+let g:clang_close_preview=0
+"let g:clang_user_options='-stdlib=libc++ -std=c++11'
+" 自动关闭补全窗口 
+" au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif 
+" set completeopt=menuone,menu,longest
 
-Plugin 'L9'
+" lib
+" Plugin 'L9'
+" quick find file
 Plugin 'ctrlp.vim'
 
 "Plugin 'git://git.wincent.com/command-t.git'
@@ -254,7 +287,7 @@ set smarttab
 " 递归查找cscope.out和tags
 " ------------------------------------------------------------------
 nmap <F5> :call AutoLoadCTagsAndCScope()<CR>
-function AutoLoadCTagsAndCScope()
+function! AutoLoadCTagsAndCScope()
     let max = 5
     let dir = './'
     let i = 0
@@ -265,7 +298,7 @@ function AutoLoadCTagsAndCScope()
             execute 'cs add ' . dir . 'cscope.out '. cwd . '/' . dir
             let break = 1
         endif
-            if filereadable(dir . 'tags')
+        if filereadable(dir . 'tags')
             execute 'set tags +=' . dir . 'tags'
             let break = 1
         endif
@@ -279,16 +312,16 @@ function AutoLoadCTagsAndCScope()
 endf
 
 nmap <F6> :call MakeAndLoadTags()<CR>
-function MakeAndLoadTags()
+function! MakeAndLoadTags()
     exec '!find ./ -name "*.h" -o -name "*.c" -o -name "*.cpp" -o -name "*.cc"> cscope.files'
     exec '!cscope -bkq -i cscope.files'
-    exec '!ctags -R ./'
+    exec '!ctags -R --fields=l ./'
     call AutoLoadCTagsAndCScope()
 endfunction
 
 " C的编译和运行 
 " ------------------------------------------------------------------
-function CompileRunGcc()  
+function! CompileRunGcc()  
 exec "w"  
 exec "!gcc % -o %<"
 exec "! ./%<"  
@@ -296,7 +329,7 @@ endfunc
 
 " C++的编译和运行 
 " -------------------------------------------------------------------
-function CompileRunGpp()  
+function! CompileRunGpp()  
 exec "w"  
 exec "!g++ % -o %<"
 exec "! ./%<"  
@@ -305,7 +338,7 @@ endfunction
 " Python的运行
 " --------------------------------------------------------------------
 au BufNewFile,BufRead *.py,*.pyw setf python
-function RunPython()   
+function! RunPython()   
     let mp = &makeprg   
     let ef = &errorformat   
     let exeFile = expand("%:t")   
@@ -333,6 +366,8 @@ endfunction
 " 修改vimrc后自动生效
 map <leader>s :source ~/.vimrc<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc 
+
+" ctags设置
 
 " cscope设置
 " -------------------------------------------------------------------

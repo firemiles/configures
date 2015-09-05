@@ -2,3 +2,4 @@
 .python-version
 .ropeproject/ 
 *.swp
+*.autosave
