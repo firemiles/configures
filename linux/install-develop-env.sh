@@ -30,7 +30,7 @@ if [ $(getconf WORD_BIT) = '32' ] && [ $(getconf LONG_BIT) = '64' ] ; then # x86
     (echo 'none        /sys/fs/cgroup        cgroup        defaults    0    0'| sudo tee -a /etc/fstab) || \
     sudo mv -f /etc/fstab.back /etc/fstab
 else    #i686
-    sudo apt-get install docker.io
+    sudo apt-get -y install docker.io
 fi 
 
 echo 'reboot system to finish.'
