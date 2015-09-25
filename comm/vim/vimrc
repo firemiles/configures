@@ -19,12 +19,6 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
 " airline设置
 set laststatus=2
-<<<<<<< HEAD
-set statusline+=%{fugitive#statusline()} "  Git Hotness
-set t_Co=256
-let g:Powerline_symbols = 'unicode'
-set encoding=utf8
-=======
 " 设置
 let g:airline_theme = "luna"
 
@@ -37,7 +31,6 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " 映射切换buffer的键位
 nnoremap b[ :bp<CR>
 nnoremap b] :bn<CR>
->>>>>>> 3f6c3a86a5617906ae98f9a72c83d37496b6ad68
 
 " git help
 " need run PowerlineClearCache refresh and reopen vim to fresh powerline
