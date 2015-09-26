@@ -23,7 +23,7 @@ git clone https://github.com/firemiles/configures.git ~/configures
 cd ~/configures; git submodule update --init comm/zsh/z; git submodule update --init comm/vim/vim/bundle/Vundle.vim
 
 # install python env
-$SUDO yum install -y openssl-devel python-pip python-devel libffi-devel gcc ipython
+$SUDO yum install -y openssl-devel python python-pip python-devel libffi-devel gcc ipython
 
 # update pip
 $SUDO pip install --no-cache-dir --upgrade pip; 
