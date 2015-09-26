@@ -1,13 +1,19 @@
 #/bin/sh
 
+if [ $UID = 0 ]; then
+    SUDO = ''
+else
+    SUDO = sudo
+fi
+
 # add repo
-sudo install -y epel-release
+$SUDO install -y epel-release
 
 # update repo
-sudo yum -y update
+$SUDO yum -y update
 
 # install develop tool
-yum -y install git tmux
+$SUDO yum -y install git tmux zsh
 
 # configure git
 git config --global core.editor vim
@@ -17,26 +23,28 @@ git clone https://github.com/firemiles/configures.git ~/configures
 cd ~/configures; git submodule update --init comm/zsh/z; git submodule update --init comm/vim/vim/bundle/Vundle.vim
 
 # install python env
-yum install -y openssl-devel python-pip python-devel libffi-devel gcc ipython
+$SUDO yum install -y openssl-devel python-pip python-devel libffi-devel gcc ipython
 
 # update pip
-pip install --no-cache-dir --upgrade pip; 
-pip install --no-cache-dir requests[security];
+$SUDO pip install --no-cache-dir --upgrade pip; 
+$SUDO pip install --no-cache-dir requests[security];
 
 # install edit
-yum -y install vim
+$SUDO yum -y install vim
 
 # configure vim
-ln -s /home/$USER/configures/comm/vim/vim ~/.vim
-ln -s /home/$USER/configures/comm/vim/vimrc ~/.vimrc
+ln -s $HOME/configures/comm/vim/vim ~/.vim
+ln -s $HOME/configures/comm/vim/vimrc ~/.vimrc
 
 # add powerline-font
 while true; do
-echo "Do you want to install powerline font(yes or no, default yes)?\c" 
+echo -e "Do you want to install powerline font(yes or no, default yes)?\c"
 read arg
 case ${arg:=y} in 
     Y|y|YES|yes)
-    git clone https://github.com/powerline/fonts.git /tmp/powerline-font && sh /tmp/powerline-font/install.sh && break;;
+    rm -rf /tmp/powerline-font
+    git clone https://github.com/powerline/fonts.git /tmp/powerline-font && sh /tmp/powerline-font/install.sh
+    break;;
     N|n|NO|no)
     break;;
 esac
@@ -47,13 +55,13 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 echo 'zsh' >> ~/.bashrc
 
 # configure zsh
-ln -s /home/$USER/configures/comm/zsh/robbyrussell-firemiles.zsh-theme ~/.oh-my-zsh/themes/robbyrussell-firemiles.zsh-theme 
-ln -s /home/$USER/configures/comm/zsh/z ~/.oh-my-zsh/custom/plugins/z 
+ln -s $HOME/configures/comm/zsh/robbyrussell-firemiles.zsh-theme ~/.oh-my-zsh/themes/robbyrussell-firemiles.zsh-theme 
+ln -s $HOME/configures/comm/zsh/z ~/.oh-my-zsh/custom/plugins/z 
 echo 'custom theme in .zshrc'
 
 # install docker
 curl -sSL https://get.daocloud.io/docker | sh
-sudo cp /etc/fstab /etc/fstab.back && \
-        (echo 'none        /sys/fs/cgroup        cgroup        defaults    0    0'| sudo tee -a /etc/fstab) || \
-        sudo mv -f /etc/fstab.back /etc/fstab
+$SUDO cp /etc/fstab /etc/fstab.back && \
+        (echo 'none        /sys/fs/cgroup        cgroup        defaults    0    0'| $SUDO tee -a /etc/fstab) || \
+        $SUDO mv -f /etc/fstab.back /etc/fstab
 echo 'reboot to finish.'
