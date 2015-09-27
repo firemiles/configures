@@ -1,9 +1,8 @@
-#/bin/sh
+#!/usr/bin/env bash
 
+SUDO = sudo
 if [ $UID = 0 ]; then
     SUDO = ''
-else
-    SUDO = sudo
 fi
 
 # add repo

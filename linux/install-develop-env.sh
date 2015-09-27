@@ -1,10 +1,10 @@
-#/bin/bash
+#!/usr/bin/env bash
 
+SUDO = sudo
 if [ $UID = 0 ]; then
     SUDO = ''
-else
-    SUDO = sudo
 fi
+
 
 $SUDO apt-get -y update
 $SUDO apt-get -y install git python ipython vim zsh tmux 
