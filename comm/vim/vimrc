@@ -71,6 +71,15 @@ let g:SrcExpl_updateTagsCmd = 'ctags --fields=l --sort=foldcase -R .'
 nmap <F4> :SrcExplToggle<CR><CR> 
 imap <F4> <ESC>:SrcExplToggle<CR><CR>
 
+" quick find in screen
+Plugin 'easymotion/vim-easymotion'
+" define easymotion-prefix 
+map <Leader> <Plug>(easymotion-prefix)
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
 " programming with c
 Plugin 'firemiles/c.vim'
 " 修改 c.vim 的 leader 键，去除和 a.vim 的冲突
@@ -343,7 +352,7 @@ function! RunPython()
     let &errorformat = ef   
 endfunction
 
-map <C-R> :call Run()<CR>
+map <F8> :call Run()<CR>
 function! Run()
     if filereadable("Makefile") || filereadable("makefile")
         exec "w"
