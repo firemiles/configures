@@ -64,7 +64,7 @@ let NERDTreeShowBookmarks=1
 
 " source Explorer
 " 和youcompleteme冲突
-Plugin 'SrcExpl'
+Plugin 'wesleyche/SrcExpl'
 let g:SrcExpl_searchLocalDef = 1
 let g:SrcExpl_isUpdateTags = 0
 let g:SrcExpl_updateTagsCmd = 'ctags --fields=l --sort=foldcase -R .'
@@ -75,8 +75,8 @@ imap <F4> <ESC>:SrcExplToggle<CR><CR>
 Plugin 'easymotion/vim-easymotion'
 " define easymotion-prefix 
 map <Leader> <Plug>(easymotion-prefix)
-nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
+" nmap s <Plug>(easymotion-s2)
+" nmap t <Plug>(easymotion-t2)
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
