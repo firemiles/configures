@@ -7,7 +7,7 @@ fi
 
 
 $SUDO apt-get -y update
-$SUDO apt-get -y install git python ipython vim zsh tmux 
+$SUDO apt-get -y install git python ipython vim zsh tmux language-pack-zh-hans 
 
 # configure git
 git config --global core.editor vim
@@ -35,10 +35,13 @@ esac
 done
 
 # install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-echo 'zsh' >> ~/.bashrc
-ln -s $HOME/configures/comm/zsh/robbyrussell-firemiles.zsh-theme ~/.oh-my-zsh/themes/robbyrussell-firemiles.zsh-theme 
-ln -s $HOME/configures/comm/zsh/z ~/.oh-my-zsh/custom/plugins/z 
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" || \
+sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" # if curl not found
+if [ -d $(HOME)/configures ] then
+    echo 'zsh' >> ~/.bashrc
+    ln -s $HOME/configures/comm/zsh/robbyrussell-firemiles.zsh-theme ~/.oh-my-zsh/themes/robbyrussell-firemiles.zsh-theme 
+    ln -s $HOME/configures/comm/zsh/z ~/.oh-my-zsh/custom/plugins/z 
+fi
 
 # install docker
 while true; do
