@@ -1,0 +1,8 @@
+{
+    "dependencies": [], 
+    "url": "", 
+    "description": "Publish blog from markdown file.", 
+    "sublime_text": "*", 
+    "version": "2015.07.20.18.02.14", 
+    "platforms": ["*"]
+}
