@@ -36,7 +36,7 @@ ln -s $HOME/configures/comm/vim/vim ~/.vim
 ln -s $HOME/configures/comm/vim/vimrc ~/.vimrc
 
 # add powerline-font
-while read -p "Do you want to install powerline font(yes or no, default yes)?" arg
+while read -p "Do you want to install powerline font(yes)?" arg
 do
 case ${arg:=y} in 
     Y|y|YES|yes)

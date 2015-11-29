@@ -22,7 +22,7 @@ ln -s $HOME/configures/comm/vim/vimrc ~/.vimrc
 
 # add powerline-font
 while true; do
-echo -e "Do you want to install powerline font(yes or no, default yes)?\c" 
+echo -e "Do you want to install powerline font(yes)?\c" 
 read arg
 case ${arg:=y} in 
     Y|y|YES|yes)
@@ -42,7 +42,7 @@ ln -s $HOME/configures/comm/zsh/z ~/.oh-my-zsh/custom/plugins/z
 
 # install docker
 while true; do
-echo -e "Do you want to install docker(yse or no, default yes)?\c"
+echo -e "Do you want to install docker(yes)?\c"
 read arg
 case ${arg:=y} in
     Y|y|YES|yes)
