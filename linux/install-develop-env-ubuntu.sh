@@ -5,14 +5,9 @@ if [ $UID = 0 ]; then
     SUDO=''
 fi
 
-# add repo
-$SUDO install -y epel-release
 
-# update repo
-$SUDO yum -y update
-
-# install develop tool
-$SUDO yum -y install git tmux zsh
+$SUDO apt-get -y update
+$SUDO apt-get -y install git python ipython vim zsh tmux 
 
 # configure git
 git config --global core.editor vim
@@ -21,27 +16,18 @@ git config --global core.editor vim
 git clone https://github.com/firemiles/configures.git ~/configures
 cd ~/configures; git submodule update --init comm/zsh/z; git submodule update --init comm/vim/vim/bundle/Vundle.vim
 
-# install python env
-$SUDO yum install -y openssl-devel python python-pip python-devel libffi-devel gcc ipython
-
-# update pip
-$SUDO pip install --no-cache-dir --upgrade pip; 
-$SUDO pip install --no-cache-dir requests[security];
-
-# install edit
-$SUDO yum -y install vim
-
 # configure vim
 ln -s $HOME/configures/comm/vim/vim ~/.vim
 ln -s $HOME/configures/comm/vim/vimrc ~/.vimrc
 
 # add powerline-font
-while read -p "Do you want to install powerline font(yes or no, default yes)?" arg
-do
+while true; do
+echo -e "Do you want to install powerline font(yes or no, default yes)?\c" 
+read arg
 case ${arg:=y} in 
     Y|y|YES|yes)
     rm -rf /tmp/powerline-font
-    git clone https://github.com/powerline/fonts.git /tmp/powerline-font && sh /tmp/powerline-font/install.sh
+    git clone https://github.com/powerline/fonts.git /tmp/powerline-font && sh /tmp/powerline-font/install.sh 
     break;;
     N|n|NO|no)
     break;;
@@ -51,15 +37,28 @@ done
 # install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 echo 'zsh' >> ~/.bashrc
-
-# configure zsh
 ln -s $HOME/configures/comm/zsh/robbyrussell-firemiles.zsh-theme ~/.oh-my-zsh/themes/robbyrussell-firemiles.zsh-theme 
 ln -s $HOME/configures/comm/zsh/z ~/.oh-my-zsh/custom/plugins/z 
-echo 'custom theme in .zshrc'
 
 # install docker
-curl -sSL https://get.daocloud.io/docker | sh
-$SUDO cp /etc/fstab /etc/fstab.back && \
+while true; do
+echo -e "Do you want to install docker(yse or no, default yes)?\c"
+read arg
+case ${arg:=y} in
+    Y|y|YES|yes)
+
+    if [ $(getconf WORD_BIT) = '32' ] && [ $(getconf LONG_BIT) = '64' ] ; then # x86_64
+        curl -sSL https://get.daocloud.io/docker | sh
+        $SUDO cp /etc/fstab /etc/fstab.back && \
         (echo 'none        /sys/fs/cgroup        cgroup        defaults    0    0'| $SUDO tee -a /etc/fstab) || \
         $SUDO mv -f /etc/fstab.back /etc/fstab
-echo 'reboot to finish.'
+    else    #i686
+        $SUDO apt-get -y install docker.io
+    fi 
+    echo 'reboot system to finish.'
+    break;;
+
+    N|n|NO|no)
+    break;;
+esac
+done
