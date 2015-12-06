@@ -54,7 +54,6 @@ echo 'zsh' >> ~/.bashrc
 
 # configure zsh
 ln -s $HOME/configures/comm/zsh/robbyrussell-firemiles.zsh-theme ~/.oh-my-zsh/themes/robbyrussell-firemiles.zsh-theme 
-ln -s $HOME/configures/comm/zsh/z ~/.oh-my-zsh/custom/plugins/z 
 echo 'custom theme in .zshrc'
 
 # install docker

@@ -39,7 +39,6 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 if [ -d $(HOME)/configures ] then
     echo 'zsh' >> ~/.bashrc
     ln -s $HOME/configures/comm/zsh/robbyrussell-firemiles.zsh-theme ~/.oh-my-zsh/themes/robbyrussell-firemiles.zsh-theme 
-    ln -s $HOME/configures/comm/zsh/z ~/.oh-my-zsh/custom/plugins/z 
 fi
 
 # install docker
