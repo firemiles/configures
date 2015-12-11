@@ -89,7 +89,12 @@ Plugin 'vim-scripts/a.vim'
 " auto complete
 Plugin 'AutoComplPop'
 Plugin 'clang-complete'
-let g:clang_library_path=""
+if has('mac') || has('macunix')
+    let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+elseif has('unix')
+    let g:clang_library_path=""
+endif
+
 let g:clang_use_library=1
 let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
 let g:clang_complete_auto=1 "auto complete after -> . and :: 
