@@ -14,7 +14,7 @@ git config --global core.editor vim
 
 # clone configure
 git clone https://github.com/firemiles/configures.git ~/configures
-cd ~/configures; git submodule update --init comm/zsh/z; git submodule update --init comm/vim/vim/bundle/Vundle.vim
+cd ~/configures; git submodule update --init comm/zsh/z; git submodule update --init comm/vim/vim/bundle/Vundle.vim; cd comm/vim/vim/bundle/Vundle.vim && git checkout master
 
 # configure vim
 ln -s $HOME/configures/comm/vim/vim ~/.vim
