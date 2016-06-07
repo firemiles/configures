@@ -38,8 +38,8 @@
 ;; project manager
 (el-get-bundle projectile
     (projectile-global-mode 1)
-    (setq projectile-enable-caching t))
-;; (global-set-key [f5] 'projectile-find-file)
+    ;; auto switch neotree root when swith project
+    (setq projectile-switch-project-action 'neotree-projectile-action))
 
 ;; save history.
 (el-get-bundle session
@@ -80,3 +80,8 @@
 ;; auto open latest open file.
 (desktop-save-mode 1)
 (global-set-key (kbd "C-x g d") 'desktop-change-dir)
+
+;; start server
+;; (require 'server)
+;; (unless (server-running-p)
+;;   (server-start))
