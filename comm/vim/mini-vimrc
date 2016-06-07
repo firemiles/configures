@@ -16,15 +16,14 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plugin 'bling/vim-airline'
 " airline设置
 set laststatus=2
 " 设置
 let g:airline_theme = "luna"
 
-" 使用powerline打过补丁的字体
-let g:airline_powerline_fonts = 1
+" 不使用powerline打过补丁的字体
+let g:airline_powerline_fonts = 0
 " 开启tabline
 let g:airline#extensions#tabline#enabled = 1
 " tabline中buffer显示编号
@@ -78,33 +77,28 @@ Plugin 'easymotion/vim-easymotion'
 map <Leader> <Plug>(easymotion-prefix)
 " nmap s <Plug>(easymotion-s2)
 " nmap t <Plug>(easymotion-t2)
-map  <Plug>(easymotion-prefix)/ <Plug>(easymotion-sn)
-omap <Plug>(easymotion-prefix)/ <Plug>(easymotion-tn)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
 
 " programming with c
-Plugin 'firemiles/c.vim'
+" Plugin 'firemiles/c.vim'
 " 修改 c.vim 的 leader 键，去除和 a.vim 的冲突
-let g:C_MapLeader = '\\' 
+" let g:C_MapLeader = '\\' 
 " swithc between h and cpp
-Plugin 'vim-scripts/a.vim'
+" Plugin 'vim-scripts/a.vim'
 " auto complete
 Plugin 'AutoComplPop'
-Plugin 'clang-complete'
-if has('mac') || has('macunix')
-    let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
-elseif has('unix')
-    let g:clang_library_path=""
-endif
-
-let g:clang_use_library=1
-let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
-let g:clang_complete_auto=1 "auto complete after -> . and :: 
-let g:clang_hl_errors=1         " highlight the warnings and error the same way clang does it
-let g:clang_complete_copen=1    " open quickfix window on error
-let g:clang_periodic_quickfix=0 " periodically update the quickfix window
-let g:clang_snippets=0
-let g:clang_close_preview=0
-let g:clang_user_options='-stdlib=libc++ -std=c++11'
+" Plugin 'clang-complete'
+" let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+" let g:clang_use_library=1
+" let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
+" let g:clang_complete_auto=1 "auto complete after -> . and :: 
+" let g:clang_hl_errors=1         " highlight the warnings and error the same way clang does it
+" let g:clang_complete_copen=1    " open quickfix window on error
+" let g:clang_periodic_quickfix=0 " periodically update the quickfix window
+" let g:clang_snippets=0
+" let g:clang_close_preview=0
+"let g:clang_user_options='-stdlib=libc++ -std=c++11'
 " 自动关闭补全窗口 
 " au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif 
 " set completeopt=menuone,menu,longest
@@ -145,12 +139,12 @@ filetype plugin indent on    " required
 set fileencodings=utf-8,gbk,chinese  
 
 " 解决中文菜单乱码  
-set langmenu=zh_CN.utf-8  
+" set langmenu=zh_CN.utf-8  
 source $VIMRUNTIME/delmenu.vim  
 source $VIMRUNTIME/menu.vim  
 
 " 解决console输出乱码  
-language messages zh_CN.utf-8
+" language messages zh_CN.utf-8
 
 "--------------------------------------------------------------------
 " 不要使用vi的键盘模式，而是vim自己的 

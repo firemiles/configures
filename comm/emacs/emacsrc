@@ -1,0 +1,87 @@
+;; work around for emacs 24.5 open slow
+(setq tramp-default-method "ssh")
+(setq tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+;; el-get
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(unless (require 'el-get nil 'noerror)
+    (with-current-buffer
+    (url-retrieve-synchronously
+     "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+
+;; Simple package names
+(el-get-bundle yasnippet)
+(el-get-bundle color-moccur)
+(el-get-bundle markdown-mode)
+;; clang complete
+(el-get-bundle company-mode
+    (add-hook 'after-init-hook 'global-company-mode))
+
+;; powerfull complete
+(el-get-bundle helm
+    (global-set-key (kbd "M-X") 'helm-M-x)
+    (global-set-key (kbd "C-x C-f") 'helm-find-files)
+    (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+    (helm-mode 1))
+
+;; Locally defined recipe
+(el-get-bundle yaicomplete
+  :url "https://github.com/tarao/elisp.git"
+  :features yaicomplete)
+
+(el-get-bundle neotree
+    (global-set-key [f2] 'neotree-toggle))
+
+;; project manager
+(el-get-bundle projectile
+    (projectile-global-mode 1)
+    ;; auto switch neotree root when swith project
+    (setq projectile-switch-project-action 'neotree-projectile-action))
+
+;; save history.
+(el-get-bundle session
+    (add-hook 'after-init-hook 'session-initialize))
+
+;; With initialization code
+(el-get-bundle zenburn-theme
+  :url "https://raw.githubusercontent.com/bbatsov/zenburn-emacs/master/zenburn-theme.el"
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/zenburn-theme")
+  (load-theme 'zenburn t))
+
+;; mode bar theme
+(el-get-bundle powerline
+  (powerline-default-theme))
+
+;; font
+(if (and (eq system-type 'darwin)  (window-system)) 
+  (progn 
+    (set-language-environment 'UTF-8)
+	(set-locale-environment "UTF-8")
+	(set-default-font "Source Code Pro 14")
+    ;; chinese font
+	(set-fontset-font t 'unicode (font-spec :name "PingFang SC")))
+)
+
+;; support clipboard
+(setq x-select-enable-clipboard t)
+
+;; close backup
+;; (setq make-backup-files nil)
+
+;; auto fix windows
+(global-visual-line-mode 1)
+
+;; view line number
+(global-linum-mode 1)
+
+;; auto open latest open file.
+(desktop-save-mode 1)
+(global-set-key (kbd "C-x g d") 'desktop-change-dir)
+
+;; start server
+;; (require 'server)
+;; (unless (server-running-p)
+;;   (server-start))

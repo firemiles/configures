@@ -36,7 +36,7 @@ ln -s $HOME/configures/comm/vim/vim ~/.vim
 ln -s $HOME/configures/comm/vim/vimrc ~/.vimrc
 
 # add powerline-font
-while read -p "Do you want to install powerline font(yes or no, default yes)?" arg
+while read -p "Do you want to install powerline font(yes)?" arg
 do
 case ${arg:=y} in 
     Y|y|YES|yes)
@@ -54,7 +54,6 @@ echo 'zsh' >> ~/.bashrc
 
 # configure zsh
 ln -s $HOME/configures/comm/zsh/robbyrussell-firemiles.zsh-theme ~/.oh-my-zsh/themes/robbyrussell-firemiles.zsh-theme 
-ln -s $HOME/configures/comm/zsh/z ~/.oh-my-zsh/custom/plugins/z 
 echo 'custom theme in .zshrc'
 
 # install docker
