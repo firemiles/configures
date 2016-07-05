@@ -42,8 +42,9 @@
     (setq projectile-switch-project-action 'neotree-projectile-action))
 
 ;; save history.
-(el-get-bundle session
-    (add-hook 'after-init-hook 'session-initialize))
+;; (el-get-bundle session
+;;    (add-hook 'after-init-hook 'session-initialize)
+;;    (add-to-list 'session-globals-exclude 'org-mark-ring)))
 
 ;; With initialization code
 (el-get-bundle zenburn-theme
@@ -81,7 +82,57 @@
 (desktop-save-mode 1)
 (global-set-key (kbd "C-x g d") 'desktop-change-dir)
 
+;; set babel languages tye
+;; usage:
+;; #+BEGIN_SRC ditaa :file some_filename.png :cmdline -r -s 0.8
+;; #+BEGIN_SRC plantuml :file export-file-name :cmdline -charset UTF-8
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '(;; other Babel languages
+    (ditaa . t)
+    (plantuml . t)
+    (dot . t)
+    ))
+(setq org-plantuml-jar-path
+	(expand-file-name "~/.emacs.d/scripts/plantuml.jar"))
+(setq org-ditaa-jar-path
+	(expand-file-name "~/.emacs.d/scripts/ditaa.jar"))
+;; don't ask when create image.
+(setq org-confirm-babel-evaluate nil)
+;; Make babel results blocks lowercase
+;; create image C-c C-c 
+;; preview C-c C-x C-v
+(add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
+(setq org-babel-results-keyword "RESULTS")
+
+(defun bh/display-inline-images ()
+	(condition-case nil
+      	(org-display-inline-images)
+		(error nil)))
+
 ;; start server
 ;; (require 'server)
 ;; (unless (server-running-p)
 ;;   (server-start))
+
+
+;; TODO
+;; show time when done
+(setq org-log-done 'time)
+
+;; entry to automatically change to DONE when all children are done
+
+(defun org-summary-todo (n-done n-not-done)
+   "Switch entry to DONE when all subentries are done, to TODO otherwise."
+	(let (org-log-done org-log-states)   ; turn off logging
+	(org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+
+;; 快速启动 agenda-view
+(define-key global-map "\C-ca" 'org-agenda)
+;;显示他们的内容
+(setq org-agenda-files
+(list "~/GTD/work.org"
+      "~/GTD/study.org"
+      "~/GTD/life.org"))
+;; artist mode
