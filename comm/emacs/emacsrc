@@ -128,11 +128,21 @@
 	(org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
+(setq org-capture-templates
+  '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+		 "* TODO %?\n  %i\n  %a")
+	("j" "Journal" entry (file+datetree "~/org/journal.org")
+		 "* %?\nEntered on %U\n  %i\n  %a")))
+
 ;; 快速启动 agenda-view
 (define-key global-map "\C-ca" 'org-agenda)
 ;;显示他们的内容
 (setq org-agenda-files
-(list "~/GTD/work.org"
-      "~/GTD/study.org"
-      "~/GTD/life.org"))
+	(list "~/org/work.org"
+	"~/org/study.org"
+	"~/org/life.org"
+	"~/org/gtd.org"
+	"~/org/journal.org"))
+
+(global-set-key (kbd "C-c c") 'org-capture)
 ;; artist mode
