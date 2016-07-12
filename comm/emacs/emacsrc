@@ -146,3 +146,7 @@
 
 (global-set-key (kbd "C-c c") 'org-capture)
 ;; artist mode
+;;
+
+;; git
+(el-get-bundle magit)

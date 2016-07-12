@@ -18,7 +18,7 @@
   <style name="Local" foreground="#e6e5e2"/>
   <style name="Field" foreground="#e6e5e2"/>
   <style name="Static" foreground="#e6e5e2"/>
-  <style name="VirtualMethod" foreground="#e5e4e1" italic="true"/>
+  <style name="VirtualMethod" foreground="#a6e22e" italic="true"/>
   <style name="Function" foreground="#a6e22e"/>
   <style name="Keyword" foreground="#f82670"/>
   <style name="PrimitiveType" foreground="#f92672"/>
