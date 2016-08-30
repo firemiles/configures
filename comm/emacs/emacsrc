@@ -79,7 +79,7 @@
 (global-linum-mode 1)
 
 ;; auto open latest open file.
-(desktop-save-mode 1)
+(desktop-save-mode 0)
 (global-set-key (kbd "C-x g d") 'desktop-change-dir)
 
 ;; set babel languages tye
@@ -145,8 +145,50 @@
 	"~/org/journal.org"))
 
 (global-set-key (kbd "C-c c") 'org-capture)
+(defun journal() (interactive) (find-file "~/org/journal.org")) 
+(global-set-key "\C-cj" 'journal)
+
 ;; artist mode
 ;;
 
 ;; git
 (el-get-bundle magit)
+
+;; hide menu
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+
+;; English time
+(setq system-time-locale "C")
+
+;; sml-mode
+(add-to-list 'load-path "~/.emacs.d/el-get/sml-mode")
+(autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
+(autoload 'run-sml "sml-proc" "Run an inferior SML process." t)
+
+;; add path to emacs
+(setq *is-a-mac* (eq system-type 'darwin))
+
+(defun string-rtrim (str)
+  "Remove trailing white-space from a string."
+  (replace-regexp-in-string "[ \t\n]*$" "" str))
+
+(defun set-exec-path-from-shell-PATH ()
+  (interactive)
+  (let ((path-from-shell
+         (string-rtrim
+          (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path
+          (split-string path-from-shell path-separator))))
+
+(when (and *is-a-mac* window-system)
+  (set-exec-path-from-shell-PATH))
+
+;; 关闭欢迎界面,这样默认界面才是日历
+(setq inhibit-startup-message t)   
+;;开机自动显示日程表
+(org-agenda-list t)
+;;关闭其它窗口
+(delete-other-windows)
