@@ -1,6 +1,3 @@
 [submodule "comm/vim/vim/bundle/Vundle.vim"]
 	path = comm/vim/vim/bundle/Vundle.vim
 	url = https://github.com/gmarik/Vundle.vim.git
-[submodule "comm/vim/vim/bundle/c.vim"]
-	path = comm/vim/vim/bundle/c.vim
-	url = https://github.com/firemiles/c.vim.git
