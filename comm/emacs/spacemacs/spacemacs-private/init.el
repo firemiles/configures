@@ -108,11 +108,12 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+   dotspacemacs-default-font '("Menlo"
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
+   (spacemacs//set-monospaced-font   "Menlo" "PingFang" 13 15)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -254,9 +255,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; font
-  (spacemacs//set-monospaced-font "Menlo" "BabelStone Han" 14 16)
-
   ;; global setting
   (global-visual-line-mode 1)
   (global-linum-mode 1)
@@ -306,6 +304,8 @@ you should place your code here."
       	(org-display-inline-images)
       (error nil)))
   )
+  ;; setting time stamp format to English
+  (setq system-time-locale "C")
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
