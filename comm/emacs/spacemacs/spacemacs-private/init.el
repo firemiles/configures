@@ -15,9 +15,10 @@ values."
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
-   ;; of a list then all discovered layers will be installed.
+   ;; of aonos lono exsist then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -26,9 +27,9 @@ values."
      osx
      chinese            ;; pinyin
      auto-completion
-     ;; better-defaults  
+     better-defaults
      emacs-lisp
-     ;; git
+     git
      markdown
      org
      python
@@ -113,7 +114,6 @@ values."
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
-   (spacemacs//set-monospaced-font   "Menlo" "PingFang" 13 15)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -255,57 +255,15 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; global setting
-  (global-visual-line-mode 1)
-  (global-linum-mode 1)
-
-  ;; pinyin
-  (require 'chinese-pyim-basedict)
-  (chinese-pyim-basedict-enable)
-
-  ;; org-mode
-  (setq org-agenda-files
-        (list "~/org/work.org"
-              "~/org/study.org"
-              "~/org/life.org"
-              "~/org/gtd.org"
-              "~/org/journal.org"))
-  (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
-           "* TODO %?\n  %i\n  %a")
-          ("j" "Journal" entry (file+datetree "~/org/journal.org")
-           "* %?\nEntered on %U\n  %i\n  %a")))
-
-  ;; set babel languages tye
-  ;; usage:
-  ;; #+BEGIN_SRC ditaa :file some_filename.png :cmdline -r -s 0.8
-  ;; #+BEGIN_SRC plantuml :file export-file-name :cmdline -charset UTF-8
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(;; other Babel languages
-     (ditaa . t)
-     (plantuml . t)
-     (dot . t)
-     ))
-  (setq org-plantuml-jar-path
-        (expand-file-name "~/.spacemacs.d/plantuml.jar"))
-  (setq org-ditaa-jar-path
-        (expand-file-name "~/.spacemacs.d/ditaa.jar"))
-  ;; don't ask when create image.
-  (setq org-confirm-babel-evaluate nil)
-  ;; Make babel results blocks lowercase
-  ;; create image C-c C-c 
-  ;; preview C-c C-x C-v
-  (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
-  (setq org-babel-results-keyword "RESULTS")
-
-  (defun bh/display-inline-images ()
-    (condition-case nil
-      	(org-display-inline-images)
-      (error nil)))
+  ;; import user configurations
+  (add-to-list 'load-path (expand-file-name "custom" dotspacemacs-directory))
+  (require 'init-packages)
+  (require 'init-ui)
+  (require 'init-better-defaults)
+  (require 'init-keybindings)
+  (require 'init-org)
+  (setq custom-file (expand-file-name "custom/custom.el" dotspacemacs-directory))
+  (load-file custom-file)
   )
-  ;; setting time stamp format to English
-  (setq system-time-locale "C")
 
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
+
