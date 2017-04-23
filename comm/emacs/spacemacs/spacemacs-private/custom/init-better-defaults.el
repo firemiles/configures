@@ -19,4 +19,7 @@
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
 
+;; add shell path to emacs
+(exec-path-from-shell-arguments)
+
 (provide 'init-better-defaults)

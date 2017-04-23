@@ -31,6 +31,8 @@ values."
      markdown
      org
      python
+     go
+     imenu-list
      themes-megapack
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -256,12 +258,14 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; import user configurations
   (add-to-list 'load-path (expand-file-name "custom" dotspacemacs-directory))
+  (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
+  
   (require 'init-packages)
   (require 'init-ui)
   (require 'init-keybindings)
   (require 'init-org)
   (require 'init-better-defaults)
-  (setq custom-file (expand-file-name "custom/custom.el" dotspacemacs-directory))
+
   (load-file custom-file)
   (org-todo-list)
   )
