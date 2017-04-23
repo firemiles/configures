@@ -13,7 +13,7 @@
 ;; open fullscreen
 (setq initial-frame-alist (quote ((fullscreen . maximized))))
 
-(defun remove-dos-eol ()
+(defun firemiles/remove-dos-eol ()
   "replace DOS eolns CR LF with Unix eolns CR"
   (interactive)
   (goto-char (point-min))

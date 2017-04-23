@@ -12,15 +12,13 @@ values."
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
-   ;; List of configuration layers to load. If it is the symbol `all' instead
-   ;; of aonos lono exsist then all discovered layers will be installed.
+   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/') dotspacemacs-configuration-layer-path '() ;; List of configuration layers to load. If it is the symbol `all' instead
+   ;; of aonos lspacelineono exsist then all discovered layers will bespaceline installed.
    dotspacemacs-configuration-layers
    '(
      html
      ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
+     ;; Example of useful lspacelineayers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
@@ -33,6 +31,7 @@ values."
      markdown
      org
      python
+     themes-megapack
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -46,7 +45,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(spaceline)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -92,7 +91,7 @@ values."
    dotspacemacs-startup-lists '(recents projects)
    ;; Number of recent files to show in the startup buffer. Ignored if
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
-   dotspacemacs-startup-recent-list-size 5
+   dotspacemacs-startup-recent-list-size 10
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
@@ -259,11 +258,10 @@ you should place your code here."
   (add-to-list 'load-path (expand-file-name "custom" dotspacemacs-directory))
   (require 'init-packages)
   (require 'init-ui)
-  (require 'init-better-defaults)
   (require 'init-keybindings)
   (require 'init-org)
+  (require 'init-better-defaults)
   (setq custom-file (expand-file-name "custom/custom.el" dotspacemacs-directory))
   (load-file custom-file)
+  (org-todo-list)
   )
-
-
