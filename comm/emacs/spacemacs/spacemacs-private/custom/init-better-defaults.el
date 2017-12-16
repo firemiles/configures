@@ -2,7 +2,7 @@
 (global-linum-mode 1)
 
 ;; setting font
-(spacemacs//set-monospaced-font "Menlo" "PingFang" 13 15)
+;; (spacemacs//set-monospaced-font "Menlo" "PingFang" 13 15)
 
 ;; setting time stamp format to English
 (setq system-time-locale "C")
@@ -18,8 +18,5 @@
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
-
-;; add shell path to emacs
-(exec-path-from-shell-arguments)
 
 (provide 'init-better-defaults)

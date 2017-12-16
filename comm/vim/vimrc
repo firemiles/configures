@@ -84,9 +84,9 @@ map  <Plug>(easymotion-prefix)/ <Plug>(easymotion-sn)
 omap <Plug>(easymotion-prefix)/ <Plug>(easymotion-tn)
 
 " programming with c
-Plugin 'firemiles/c.vim'
+" Plugin 'firemiles/c.vim'
 " 修改 c.vim 的 leader 键，去除和 a.vim 的冲突
-let g:C_MapLeader = '\\' 
+" let g:C_MapLeader = '\\' 
 " swithc between h and cpp
 Plugin 'vim-scripts/a.vim'
 " auto complete

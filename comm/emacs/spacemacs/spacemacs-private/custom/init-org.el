@@ -1,30 +1,33 @@
+(provide 'init-org)
+
 ;; org-mode
+
+(setq org/task "/Users/firemiles/org/task/gtd.org")
+(setq org/journal "/Users/firemiles/org/journal/journal.org")
+
 (setq org-agenda-files
-      (list "~/org/work.org"
-            "~/org/study.org"
-            "~/org/gtd.org"
-            "~/org/journal.org"))
+      (list
+       org/task
+       org/journal))
+
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+      '(("t" "Todo" entry (file+headline org/task "Tasks")
          "* TODO %?\n  %i\n  %a")
-        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+        ("j" "Journal" entry (file+datetree org/journal)
          "* %?\nEntered on %U\n  %i\n  %a")))
 
 (defun firemiles/open-journal ()
   (interactive)
-  (org-open-file "~/org/journal.org"))
+  (org-open-file org/journal))
 
 (defun firemiles/open-gtd ()
   (interactive)
-  (org-open-file "~/org/gtd.org"))
+  (org-open-file org/task))
 
-(defun firemiles/open-study ()
+(defun firemiles/open-financial ()
   (interactive)
-  (org-open-file "~/org/study.org"))
+  (org-open-file "~/org/finances/finances.org"))
 
-(defun firemiles/open-work ()
-  (interactive)
-  (org-open-file "~/org/work.org"))
 ;; set babel languages tye
 ;; usage:
 ;; #+BEGIN_SRC ditaa :file some_filename.png :cmdline -r -s 0.8
@@ -40,6 +43,7 @@
    (python . t)
    (sh . t)
    (latex . t)
+   (ledger . t)
    ))
 (setq org-plantuml-jar-path
       (expand-file-name "3rd/plantuml.jar" dotspacemacs-directory))
@@ -54,8 +58,52 @@
 (setq org-babel-results-keyword "RESULTS")
 
 (defun firemiles/display-inline-images ()
+  (interactive)
   (condition-case nil
       (org-display-inline-images)
     (error nil)))
 
-(provide 'init-org)
+(defun firemiles/org-screenshot (basename)
+  "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive "sScreenshot name: ")
+  (if (equal basename "")
+      (setq basename (format-time-string "%Y%m%d_%H%M%S")))
+  (setq filename
+        (concat (file-name-directory (buffer-file-name))
+                "imgs/"
+                (file-name-base (buffer-file-name))
+                "_"
+                basename
+                ".png"))
+  (call-process "screencapture" nil nil nil "-s" filename)
+  (insert "#+CAPTION:")
+  (insert basename)
+  (insert "\n")
+  (insert (concat "[[file:" filename "]]"))
+  (org-display-inline-images))
+
+
+(defun firemiles/org-insert-screenshot (fullname)
+  (interactive "P")
+  (setq fullname
+        (concat (file-name-directory (buffer-file-name))
+                "imgs/"
+                (file-name-base (buffer-file-name))
+                "_"
+                (format-time-string "%Y%m%d_%H%M%S")
+
+                ".png"))
+
+  (unless (file-exists-p (file-name-directory fullname))
+    (make-directory (file-name-directory fullname)))
+
+  (call-process "pngpaste" nil nil nil fullname)
+
+  (if (not (file-exists-p fullname))
+      (message "Can't find screenshot in clipboard!")
+
+    (insert "#+CAPTION:" (file-name-base fullname) "\n")
+    (insert "#+ATTR_ORG: :width 300px\n")
+    (insert (concat "[[file:" fullname "]]"))
+    (org-display-inline-images)))

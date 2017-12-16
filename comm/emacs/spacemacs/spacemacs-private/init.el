@@ -16,22 +16,24 @@ values."
    ;; of aonos lspacelineono exsist then all discovered layers will bespaceline installed.
    dotspacemacs-configuration-layers
    '(
-     html
      ;; ----------------------------------------------------------------
      ;; Example of useful lspacelineayers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      osx
-     chinese            ;; pinyin
-     auto-completion
      better-defaults
+     html
      emacs-lisp
      git
      markdown
-     org
+     (org :variables
+          org-enable-github-support t
+          org-enable-bootstrap-support t
+          org-enable-reveal-js-support t)
      python
      go
+     finance
      imenu-list
      themes-megapack
      ;; (shell :variables
@@ -90,10 +92,10 @@ values."
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
-   dotspacemacs-startup-lists '(recents projects)
+   dotspacemacs-startup-lists '(projects recents bookmarks)
    ;; Number of recent files to show in the startup buffer. Ignored if
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
-   dotspacemacs-startup-recent-list-size 10
+   dotspacemacs-startup-recent-list-size 5
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
@@ -111,7 +113,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Menlo"
-                               :size 14
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -259,13 +261,13 @@ you should place your code here."
   ;; import user configurations
   (add-to-list 'load-path (expand-file-name "custom" dotspacemacs-directory))
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
-  
+
   (require 'init-packages)
   (require 'init-ui)
   (require 'init-keybindings)
   (require 'init-org)
+  (require 'init-code)
   (require 'init-better-defaults)
 
   (load-file custom-file)
-  (org-todo-list)
   )
