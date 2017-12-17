@@ -86,7 +86,7 @@ same directory as the org-buffer and insert a link to this file."
 
 (defun firemiles/org-insert-screenshot (fullname)
   (interactive "P")
-  (setq fullname
+  (setq default-name
         (concat (file-name-directory (buffer-file-name))
                 "imgs/"
                 (file-name-base (buffer-file-name))
@@ -95,6 +95,8 @@ same directory as the org-buffer and insert a link to this file."
 
                 ".png"))
 
+
+  (setq fullname (read-from-minibuffer "Input image save path: " default-name))
   (unless (file-exists-p (file-name-directory fullname))
     (make-directory (file-name-directory fullname)))
 
