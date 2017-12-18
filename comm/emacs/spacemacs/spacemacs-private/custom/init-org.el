@@ -63,27 +63,6 @@
       (org-display-inline-images)
     (error nil)))
 
-(defun firemiles/org-screenshot (basename)
-  "Take a screenshot into a time stamped unique-named file in the
-same directory as the org-buffer and insert a link to this file."
-  (interactive "sScreenshot name: ")
-  (if (equal basename "")
-      (setq basename (format-time-string "%Y%m%d_%H%M%S")))
-  (setq filename
-        (concat (file-name-directory (buffer-file-name))
-                "imgs/"
-                (file-name-base (buffer-file-name))
-                "_"
-                basename
-                ".png"))
-  (call-process "screencapture" nil nil nil "-s" filename)
-  (insert "#+CAPTION:")
-  (insert basename)
-  (insert "\n")
-  (insert (concat "[[file:" filename "]]"))
-  (org-display-inline-images))
-
-
 (defun firemiles/org-insert-screenshot (fullname)
   (interactive "P")
   (setq default-name
@@ -92,9 +71,7 @@ same directory as the org-buffer and insert a link to this file."
                 (file-name-base (buffer-file-name))
                 "_"
                 (format-time-string "%Y%m%d_%H%M%S")
-
                 ".png"))
-
 
   (setq fullname (read-from-minibuffer "Input image save path: " default-name))
   (unless (file-exists-p (file-name-directory fullname))

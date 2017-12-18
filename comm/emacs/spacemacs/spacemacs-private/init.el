@@ -23,6 +23,7 @@ values."
      ;; ----------------------------------------------------------------
      osx
      better-defaults
+     auto-completion
      html
      emacs-lisp
      git
@@ -271,3 +272,4 @@ you should place your code here."
 
   (load-file custom-file)
   )
+
