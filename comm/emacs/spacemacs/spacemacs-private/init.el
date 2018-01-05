@@ -34,6 +34,7 @@ values."
           org-enable-reveal-js-support t)
      python
      go
+     gtags
      finance
      imenu-list
      themes-megapack
