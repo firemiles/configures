@@ -12,26 +12,32 @@ values."
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
-   ;; List of configuration layers to load. If it is the symbol `all' instead
-   ;; of a list then all discovered layers will be installed.
+   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/') dotspacemacs-configuration-layer-path '() ;; List of configuration layers to load. If it is the symbol `all' instead
+   ;; of aonos lspacelineono exsist then all discovered layers will bespaceline installed.
    dotspacemacs-configuration-layers
    '(
      ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
+     ;; Example of useful lspacelineayers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      osx
-     chinese            ;; pinyin
+     better-defaults
      auto-completion
-     ;; better-defaults  
+     html
      emacs-lisp
-     ;; git
+     git
      markdown
-     org
+     (org :variables
+          org-enable-github-support t
+          org-enable-bootstrap-support t
+          org-enable-reveal-js-support t)
      python
+     go
+     gtags
+     finance
+     imenu-list
+     themes-megapack
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -45,7 +51,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(spaceline)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -88,7 +94,7 @@ values."
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
-   dotspacemacs-startup-lists '(recents projects)
+   dotspacemacs-startup-lists '(projects recents bookmarks)
    ;; Number of recent files to show in the startup buffer. Ignored if
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 5
@@ -108,7 +114,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Menlo"
                                :size 13
                                :weight normal
                                :width normal
@@ -254,58 +260,17 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; font
-  (spacemacs//set-monospaced-font "Menlo" "BabelStone Han" 14 16)
+  ;; import user configurations
+  (add-to-list 'load-path (expand-file-name "custom" dotspacemacs-directory))
+  (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 
-  ;; global setting
-  (global-visual-line-mode 1)
-  (global-linum-mode 1)
+  (require 'init-packages)
+  (require 'init-ui)
+  (require 'init-keybindings)
+  (require 'init-org)
+  (require 'init-code)
+  (require 'init-better-defaults)
 
-  ;; pinyin
-  (require 'chinese-pyim-basedict)
-  (chinese-pyim-basedict-enable)
-
-  ;; org-mode
-  (setq org-agenda-files
-        (list "~/org/work.org"
-              "~/org/study.org"
-              "~/org/life.org"
-              "~/org/gtd.org"
-              "~/org/journal.org"))
-  (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
-           "* TODO %?\n  %i\n  %a")
-          ("j" "Journal" entry (file+datetree "~/org/journal.org")
-           "* %?\nEntered on %U\n  %i\n  %a")))
-
-  ;; set babel languages tye
-  ;; usage:
-  ;; #+BEGIN_SRC ditaa :file some_filename.png :cmdline -r -s 0.8
-  ;; #+BEGIN_SRC plantuml :file export-file-name :cmdline -charset UTF-8
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(;; other Babel languages
-     (ditaa . t)
-     (plantuml . t)
-     (dot . t)
-     ))
-  (setq org-plantuml-jar-path
-        (expand-file-name "~/.spacemacs.d/plantuml.jar"))
-  (setq org-ditaa-jar-path
-        (expand-file-name "~/.spacemacs.d/ditaa.jar"))
-  ;; don't ask when create image.
-  (setq org-confirm-babel-evaluate nil)
-  ;; Make babel results blocks lowercase
-  ;; create image C-c C-c 
-  ;; preview C-c C-x C-v
-  (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
-  (setq org-babel-results-keyword "RESULTS")
-
-  (defun bh/display-inline-images ()
-    (condition-case nil
-      	(org-display-inline-images)
-      (error nil)))
+  (load-file custom-file)
   )
 
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.

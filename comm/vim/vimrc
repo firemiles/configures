@@ -84,9 +84,9 @@ map  <Plug>(easymotion-prefix)/ <Plug>(easymotion-sn)
 omap <Plug>(easymotion-prefix)/ <Plug>(easymotion-tn)
 
 " programming with c
-Plugin 'firemiles/c.vim'
+" Plugin 'firemiles/c.vim'
 " 修改 c.vim 的 leader 键，去除和 a.vim 的冲突
-let g:C_MapLeader = '\\' 
+" let g:C_MapLeader = '\\' 
 " swithc between h and cpp
 Plugin 'vim-scripts/a.vim'
 " auto complete
@@ -336,17 +336,25 @@ endfunction
 " C的编译和运行 
 " ------------------------------------------------------------------
 function! CompileRunGcc()  
-exec "w"  
-exec "!gcc % -o %<"
-exec "! ./%<"  
+    let mp = &makeprg
+    exec "w"  
+    setlocal makeprg=gcc\ -Wall\ %\ -o\ %<
+    silent make
+    copen
+    syntax on   " fix highlight after make
+    let &makeprg = mp
 endfunc  
 
 " C++的编译和运行 
 " -------------------------------------------------------------------
 function! CompileRunGpp()  
-exec "w"  
-exec "!g++ % -o %<"
-exec "! ./%<"  
+    let mp = &makeprg
+    exec "w"
+    setlocal makeprg=g++\ -Wall\ %\ -o\ %<
+    silent make 
+    copen
+    syntax on   " fix highlight after make
+    let &makeprg = mp
 endfunction
 
 " Python的运行
@@ -360,12 +368,14 @@ function! RunPython()
     set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m   
     silent make %   
     copen   
+    syntax on   " fix highlight after make
     let &makeprg     = mp   
     let &errorformat = ef   
 endfunction
 
-map <F8> :call Run()<CR>
-function! Run()
+
+map <leader>c :call Compile()<CR>
+function! Compile()
     if filereadable("Makefile") || filereadable("makefile")
         exec "w"
         exec "make"

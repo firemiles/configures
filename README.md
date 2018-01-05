@@ -5,8 +5,8 @@ INSTALL
 --------
 
 ```shell
-git clone https://github.com/firemiles/configures.git
-cd configure && git submodule init && git submodule update
+$ git clone https://github.com/firemiles/configures.git
+$ cd configure && git submodule init && git submodule update
 ```
 
 
