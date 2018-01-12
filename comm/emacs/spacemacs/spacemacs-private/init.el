@@ -23,19 +23,17 @@ values."
      ;; ----------------------------------------------------------------
      osx
      better-defaults
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t)
      html
      emacs-lisp
      git
      markdown
      (org :variables
-          org-enable-github-support t
-          org-enable-bootstrap-support t
-          org-enable-reveal-js-support t)
+          org-enable-github-support t)
      python
-     go
-     gtags
-     finance
+     (go :variables
+         go-tab-width 4)
      imenu-list
      themes-megapack
      ;; (shell :variables
