@@ -30,7 +30,7 @@ values."
      git
      markdown
      (org :variables
-          org-enable-github-support t)
+          org-enable-github-support nil)
      python
      (go :variables
          go-tab-width 4)
