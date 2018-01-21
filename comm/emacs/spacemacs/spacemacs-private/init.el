@@ -35,7 +35,6 @@ values."
      (go :variables
          go-tab-width 4)
      imenu-list
-     themes-megapack
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -112,7 +111,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Menlo"
+   dotspacemacs-default-font '("Consolas"
                                :size 13
                                :weight normal
                                :width normal

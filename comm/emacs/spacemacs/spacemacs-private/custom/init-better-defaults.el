@@ -8,11 +8,11 @@
 
 (setq chinese-font "Consolas")
 (cond ((eq system-type 'darwin) (setq chinese-font "PingFang SC"))
-       ((eq system-type 'window-nt) (setq chinese-font "Microsoft Yahei")))
+      ((eq system-type 'windows-nt) (setq chinese-font "Hiragino Sans GB")))
 
 (dolist (charset '(kana han cjk-misc bopomofo))
   (set-fontset-font (frame-parameter nil 'font) charset
-                    (font-spec :family chinese-font :size 20)))
+                    (font-spec :family chinese-font :size 16)))
 
 ;; setting time stamp format to English
 (setq system-time-locale "C")
@@ -28,4 +28,3 @@
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
-
