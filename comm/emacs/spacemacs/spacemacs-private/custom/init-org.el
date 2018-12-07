@@ -2,8 +2,8 @@
 
 ;; org-mode
 
-(setq org/task "/Users/firemiles/org/task/gtd.org")
-(setq org/journal "/Users/firemiles/org/journal/journal.org")
+(setq org/task "~/org/task/gtd.org")
+(setq org/journal "~/org/journal/journal.org")
 
 (setq org-agenda-files
       (list
@@ -41,7 +41,7 @@
    (emacs-lisp . t)
    (ruby . t)
    (python . t)
-   (sh . t)
+   (shell . t)
    (latex . t)
    (ledger . t)
    ))

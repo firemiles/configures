@@ -16,9 +16,10 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+ Plugin 'vim-airline/vim-airline'
+ Plugin 'vim-airline/vim-airline-themes'
 " airline设置
+let g:airline_extensions = ["branch", "ctrlp", "quickfix", "fugitiveline"]
 set laststatus=2
 " 设置
 let g:airline_theme = "luna"
@@ -208,6 +209,12 @@ setlocal noswapfile
 " 配色
 syntax enable
 colorscheme monokai
+
+" 高亮当前行和列
+set cursorcolumn
+set cursorline
+" highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+" highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
 
 " 字符间插入的像素行数目  
 set linespace=0  
