@@ -5,9 +5,8 @@ This is vim configure file based on Vundle.vim vim-plugin manager.
 # Install
 ```sh
 $ cp vimrc ~/.vimrc 
-$ cp vim ~/.vim 
+$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
->**note: vim directory appreared after configure repo executing `git submodule init && git submodule update`**
 
 Open `vim` and switch to `command-mode`, run
 ```
